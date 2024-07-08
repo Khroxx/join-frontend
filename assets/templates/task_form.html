@@ -1,0 +1,82 @@
+<div class="add-task-container">
+    <form onsubmit="createTask(); return false;">
+        <div class="add-task-container-content">
+            <input required class="pointer" type="text" placeholder="Enter a title" id="add-task-title">
+
+            <label for="add-task-description">Description (optional)</label>
+            <textarea class="pointer" type="text" name="add-task-description" id="add-task-description"
+                placeholder="Enter a description"></textarea>
+
+            <label for="add-task-date">Due date</label>
+            <input required class="pointer" type="date" name="add-task-date" id="add-task-date" min="" onclick="updateMinDate()">
+
+            <label for="add-task-priority">Priority (optional)</label>
+            <div id="add-task-priority">
+                <div id="add-task-urgent" class="add-task-priority-box pointer" onclick="changePriority('urgent')">
+                    <div>Urgent</div>
+                    <img src="/assets/img/Prio urgent.png" alt="">
+                </div>
+                <div id="add-task-medium" class="add-task-priority-box pointer" onclick="changePriority('medium')">
+                    <div>Medium</div>
+                    <img src="/assets/img/Prio medium.png" alt="">
+                </div>
+                <div id="add-task-low" class="add-task-priority-box pointer" onclick="changePriority('low')">
+                    <div>Low</div>
+                    <img src="/assets/img/Prio low.png" alt="">
+                </div>
+            </div>
+
+            <label for="add-task-assigne">Assgigned to (optional)</label>
+            <div class="pointer" id="add-task-assigne" onclick="showAndHideContacts()">
+                <div>Select contacts to assgin</div>
+                <img src="/assets/img/arrow_drop_down.png" alt="">
+            </div>
+            <div class="d-none searchbar-add-contacts-input-container" id="searchbar-add-contacts-container">
+                <input onkeyup="searchContactToAdd()" class="pointer" type="text" id="searchbar-add-contacts">
+                <img class="rotated-image" src="/assets/img/arrow_drop_down.png" alt="" onclick="showAndHideContacts()">
+            </div>
+            <div class="d-none" id="add-task-contacts-to-assigne">
+            </div>
+            <div class="d-none" id="add-task-selected-contacts-mini">
+            </div>
+            <label for="add-task-category">Category</label>
+            <div class="pointer" id="add-task-category" onclick="showAndHideCategories()">
+                <div id="add-task-currently-selected-category">Select task category</div>
+                <img id="arrow-categories" src="/assets/img/arrow_drop_down.png" alt="">
+            </div>
+            <div class="d-none" id="add-task-category-dropdown">
+                <div class="add-task-category-dropdown-task" onclick="selectedTask('technical')">Technical Task
+                </div>
+                <div class="add-task-category-dropdown-task" onclick="selectedTask('userstory')">User Story</div>
+            </div>
+            <div class="d-none" id="add-task-category-alert">
+                <span>Please choose a category</span>
+            </div>
+            <label for="add-task-subtask">Subtask (optional)</label>
+            <div id="add-task-subtask-container">
+                <div id="add-task-subtask-input-container">
+                    <input class="pointer" type="text" name="subtask" id="add-task-subtask-input"
+                        placeholder="Add new subtask">
+
+                    <div id="add-task-subtask-image-container">
+                        <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="confirmAddSubtask()">
+                    </div>
+
+                </div>
+                <div class="d-none" id="add-task-subtask-alert">
+                    <span>You can't add an empty subtask</span>
+                </div>
+                <div>
+                    <ul id="add-task-subtask-list">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="add-task-form-buttons">
+            <button type="button" id="add-task-clear-form" onclick="clearForm()" formnovalidate>Clear X</button>
+            <button id="add-task-create-task"> Create Task <img src="assets/img/check.png" alt=""></button>            
+        </div>
+    </form>
+    <div id="successTask" class="addedTaskSuccess"><p>Task added to board</p> <img src="/assets/img/board_white.png" alt=""></div>
+</div>

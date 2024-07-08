@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="script.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="singUp.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/img/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/img/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="assets/img/favicon/site.webmanifest" />
+    <title>Sign Up</title>
+  </head>
+  <body onload="init()">  
+    <div class="signUpContainer">
+      <img
+        id="logo-img"
+        class="signUpImage"
+        src="assets/img/Capa2.png"
+        alt=""
+      />
+      <div class="signUpInputContainer">
+        <div class="signUp">
+          <div class="signUpHeader">
+            <a class="arrow" href="index.html"
+              ><img src="assets/img/arrow-left-line.png" alt=""
+            /></a>
+            <h1>Sing Up</h1>
+            <!-- <div style="width: 32px"></div> -->
+          </div>
+          <form onsubmit="register(); return false;" class="signUpForm" action="">
+            <input required id="user_name" class="signUpInput" type="text" placeholder="Name"/>
+            <input required id="email" class="signUpInput" type="email" placeholder="Email"/>
+            <input required id="password" class="signUpInput" type="password" placeholder="Password"/>
+            <input required id="repeat_password" class="signUpInput" type="password" placeholder="Confirm Password"/>
+            <span id="signUpPassword">passwords do not match!</span>
+            <div id="remember-div">
+              <input required type="checkbox" name="acceptCheckBox" id="acceptCheckBox" class="acceptCheckBox"/>
+              <label for="acceptCheckBox">I accept the
+                <a class="policy" target="”_blank”" href="plain_privacy_policy.html">Privacy policy</a>
+                </label>
+            </div>
+
+            <div class="d-none" id="msgBox">
+              <p>Du hast erfolgreich registriert!</p>
+            </div>
+
+            <div class="signUpBtn">
+              <button id="signUpBtn">Sing Up</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="policys">
+        <a class="policy_link" target="”_blank”" href="plain_privacy_policy.html">Privacy Policy</a>
+        <a class="policy_link" target="”_blank”" href="plain_legal_notice.html">Legal Notice</a>
+      </div>
+    </div>
+  </body>
+</html>

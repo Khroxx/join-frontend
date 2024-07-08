@@ -1,0 +1,45 @@
+<header>
+    <nav class="navbar">
+        <div class="nav-logo"><img src="assets/img/Capa2.png"></div>
+        <ul class="nav-list">
+            <li class="li-display"><a href="#">Kanban Project Management Tool</a></li>
+            <li class="li-display"><a href="help.html"><img id="help-icon" src="assets/img/help.png" alt="help logo"></a></li>
+
+            <li onclick="showNavDropDown()">
+                <a href="#">
+                    <div id="user-initials">
+                        
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<div id="navbar-dropdown" class="navbar-dropdown d-none">
+    <li><a href="legal_notice.html">Legal Notice</a></li>
+    <li><a href="privacy_policy.html">Privacy Policy</a></li>
+    <li onclick="logout()"><a>Log out</a></li>
+</div>
+
+<div class="sidenav">
+    <div class="sidenavPanels">
+        <a id="summaryPage" href="summary.html">
+            <img id="summaryImg" src="assets/img/nav-summary-icon.png" alt=""> Summary
+        </a>
+        <a id="taskPage" href="add_task.html">
+            <img id="taskImg" src="assets/img/nav-add-task-icon.png" alt=""> Add Task
+        </a>
+        <a id="boardPage" href="board.html">
+            <img id="boardImg" src="assets/img/nav-board-icon.png" alt=""> Board
+        </a>
+        <a id="contactsPage" href="contacts.html">
+            <img id="contactsImg" src="assets/img/nav-contact-icon.png" alt=""> Contact
+        </a>
+    </div>
+
+    <div class="legal">
+        <a href="privacy_policy.html">Privacy Policy</a>
+        <a href="legal_notice.html">Legal Notice</a>
+    </div>
+</div>
