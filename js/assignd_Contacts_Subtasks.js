@@ -80,7 +80,7 @@ async function toggleSubtaskStatus(status, text, todoId, subId) {
     if (status !== undefined && text !== undefined) {
         const newStatus = !status;
         await updateSubtasks(todoId, text, newStatus, subId);
-        updateHTML();
+        await updateHTML();
     }
 }
 
@@ -123,8 +123,8 @@ function selectAssignedContact(elementID, index){
     const assignedContact = selectedContacts;
     // const taskIndex = allTasks.findIndex(task => task.id === elementID);
     currentTodoId = elementID;
-    let thisTask = allTasks.filter(task => task.id === currentTodoId)
-    console.log(allTasks)
+    // let thisTask = allTasks.filter(task => task.id === currentTodoId)
+    // console.log(allTasks)
     // if (taskIndex === -1) {
         // return;
     // }

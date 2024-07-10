@@ -37,7 +37,7 @@ async function register(){
 
 
         setTimeout(() => {
-            // window.location.href = 'index.html?msg=Du hast dich erfolgreich registriert';
+            window.location.href = 'index.html?msg=Du hast dich erfolgreich registriert';
         }, 3000);
     }
 }

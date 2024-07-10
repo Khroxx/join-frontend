@@ -1,6 +1,7 @@
 let loadedTasks = [];
 let currentDraggedElement;
 let currentDraggedElementID; 
+// let currentAssignedContacts;
 // let currentTodoId = '';
 
 
@@ -28,7 +29,7 @@ async function loadedTaskstoBoard() {
 async function updateHTML() {
     await loadedTaskstoBoard();
     const searchInput = document.getElementById('findTask').value.toLowerCase();
-    initTaskData();
+    await initTaskData();
     renderTasksByStatus(loadedTasks, "todo", "todoListContainer");
     renderTasksByStatus(loadedTasks, "progress", "progressListContainer");
     renderTasksByStatus(loadedTasks, "feedback", "awaitFeedbackListContainer");
@@ -203,6 +204,7 @@ async function updateEditTask(elementID){
  * @param {number} elementID - The ID of the element being edited.
  */
 async function updateEditedTask(elementID){
+    try {
     const currentTask = allTasks.filter(task => task.id === elementID)
     const title = document.getElementById('add-task-title').value;
     const description = document.getElementById('add-task-description').value;
@@ -211,23 +213,36 @@ async function updateEditedTask(elementID){
     const category = selectedCategory;
     const subtasks = await getSubtasks();
     let subtask = subtasks.filter(task => task.todo_item === elementID)
-
-    let allUsers = await getUsers()
-    const currentAssignedContacts = currentTask[0].users;
-
-    let matchingUsers = [];
-    for (let user of allUsers) {
-        if (currentAssignedContacts.includes(user.id)) {
-            matchingUsers.push(user.id);
-            }
-    }
-
+    let currentAssignedContacts = currentTask[0].users;
+    let matchingUserIds = selectedUsersForTask.map(user => user.id);
+    let updatedAssignedContacts = [...currentAssignedContacts, ...matchingUserIds];
+    updatedAssignedContacts = [...new Set(updatedAssignedContacts)];
     renderAssignableContactsEdit(elementID);
-    await updateTodo(title, description, date, priority, matchingUsers, category, subtask, currentTask[0].id, subtask.id)
+    await updateTodo(title, description, date, priority, updatedAssignedContacts, category, subtask, currentTask[0].id)
     await updateHTML();
     location.reload();
+    } catch (error){
+        console.error('wtf', error)
+    }
 }
 
+
+async function removeUserFromTask(user){
+    const currentTask = allTasks.filter(task => task.id === currentTodoId);
+    const title = document.getElementById('add-task-title').value;
+    const description = document.getElementById('add-task-description').value;
+    const date = document.getElementById('add-task-date').value;
+    const priority = currentTask.priority;
+    const category = selectedCategory;
+    const subtasks = await getSubtasks();
+    let subtask = subtasks.filter(task => task.todo_item === currentTodoId);
+    let currentAssignedContacts = currentTask[0].users; // id's
+    const updatedAssignedContacts = currentAssignedContacts.filter(contactId => contactId !== user[0].id);
+    renderAssignableContactsEdit(currentTodoId);
+    await updateTodo(title, description, date, priority, updatedAssignedContacts, category, subtask, currentTask[0].id)
+    await updateHTML();
+    // location.reload();
+}
 
 /**
  * Handles the selection/deselection of an assigned contact for a specific task.
@@ -247,17 +262,13 @@ function selectAssignedContact(elementID, index){
         const uniqueAssignedContacts = [...new Set(combinedAssignedContacts)];
 
         allTasks[taskIndex]['user'] = uniqueAssignedContacts;
-        console.log('ffjfjfj', allTasks[taskIndex].user)
 
     } 
     else {
         const existingContactIndex = allTasks[taskIndex]['user'].indexOf(assignedContact);
         allTasks[taskIndex]['user'].splice(existingContactIndex, 1);
-        console.log('ffjfjfj', allTasks[taskIndex].user)
 
     }  
-    
-    // setItem('allTasks', JSON.stringify(allTasks));
     renderAssignableContactsEdit(elementID);
 }
 
@@ -268,7 +279,7 @@ function selectAssignedContact(elementID, index){
 async function deleteTask(elementID) {
         await deleteTodo(elementID)
         closeTaskPopup();
-        updateHTML();
+        await updateHTML();
 }
 
 
@@ -328,7 +339,7 @@ function getFirstLettersUppercase(text) {
  * @returns {string} - The initials.
  */
 function getInitials(fullName) {
-    console.log(fullName)
+    // console.log(fullName)
     // fullName = String(fullName)
     if (fullName.includes(" ")){
         const nameParts = fullName.split(' ');

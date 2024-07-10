@@ -8,6 +8,7 @@ let subtasks = [];
 let lastStatus = 'todo';
 let searchQuery = '';
 let currentTodoId = '';
+let selectedUsersForTask = [];
 
 
 /**
@@ -22,9 +23,9 @@ async function initTaskData() {
     if (document.getElementById('add-task-contacts-to-assigne') != null ){
     document.getElementById('add-task-contacts-to-assigne').innerHTML = renderAssignableContacts();
     }
-    allTasks.forEach(task => {
-        changePriority(task.priority);
-    });
+    // allTasks.forEach(task => {
+    //     changePriority(task.priority);
+    // });
     updateMinDate();
 }
 
@@ -55,10 +56,6 @@ function generateTaskID(existingIDs) {
  * @throws {Alert} - Displays alerts for missing priority or category selections.
  */
 async function createTask() {
-    // let thisSubtasks = holdSubtasks();
-    console.log(subtaskArray)
-    // let thisSubtasks = subtasks.filter(subtask => !subtask.id);
-
     const newTask = {
         title: document.getElementById('add-task-title').value,
         description: document.getElementById('add-task-description').value,
@@ -77,8 +74,6 @@ async function createTask() {
     try {
         
         allTasks.push(newTask);
-        console.log('alles', newTask)
-        console.log('subtask', newTask.subtask)
         await setTodo(newTask.title, newTask.description, newTask.date, 
             newTask.priority, newTask.assignedContact, newTask.category,
             newTask.status, newTask.subtask);
@@ -86,12 +81,12 @@ async function createTask() {
         console.log('kein neues todo', error)
     }
 
-    // if (window.location.href.endsWith('add_task.html')) {
-    //     taskAddedPopup();
-    //     setTimeout(function () {
-    //         window.location.href = 'board.html';
-    //     }, 800);
-    // }
+    if (window.location.href.endsWith('add_task.html')) {
+        taskAddedPopup();
+        setTimeout(function () {
+            window.location.href = 'board.html';
+        }, 800);
+    }
     clearForm();
 
 }
@@ -196,17 +191,16 @@ function selectContact(id) {
     const filteredContacts = allContacts[0].filter(contact => contact.username.toLowerCase().startsWith(searchQuery));
     selectedContact = filteredContacts[id];
     let contact = document.getElementById(`contact-${id}`);
-    let emailToRemoveContact = selectedContact.email;
-    let indexToRemoveContact = selectedContacts.findIndex(selectedContact => selectedContact.email === emailToRemoveContact);
     const checkboxImage = document.getElementById(`contact-checkbox-${id}`);
 
     if (contact.classList.contains('selectedContact')) {
         unselectContact(contact, checkboxImage);
-        if (indexToRemoveContact !== -1) {
-            selectedContacts.splice(indexToRemoveContact, 1);
-        }
+        let userId = id + 1;
+        selectedContact = allContacts[0].filter(contact => contact.id === userId);
+        removeUserFromTask(selectedContact);
     } else {
         selectedContacts.push(selectedContact);
+        selectedUsersForTask.push(selectedContact);
         contact.classList.add('selectedContact');
         checkboxImage.src = 'assets/img/add-task/checkbox-checked.png';
         checkboxImage.style.filter = 'brightness(0) saturate(100%) invert(87%) sepia(14%) saturate(5010%) hue-rotate(541deg) brightness(250%) contrast(155%)';

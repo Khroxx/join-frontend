@@ -151,7 +151,7 @@ async function setTodo(title, desc, created, prio, users, category, status, subt
     }
 }
 
-async function updateTodo(title, desc, created, prio, users, category, subtask, todoId, subtasksId){
+async function updateTodo(title, desc, created, prio, users, category, subtask, todoId){
     const url = `http://127.0.0.1:8000/todos/${todoId}/`;
     const csrfToken = getCSRFToken();
     const requestOptions = {
@@ -170,8 +170,10 @@ async function updateTodo(title, desc, created, prio, users, category, subtask, 
         }) 
     }
     try {
-        await fetch(url, requestOptions),
-        await updateSubtasks(todoId, subtask.text, subtask.status, subtasksId)
+        await fetch(url, requestOptions);
+        for (let subtasksE of subtask) {
+            await updateSubtasks(todoId, subtasksE.text, subtasksE.status, subtasksE.id);
+        }
     } catch (error){
         console.error('konnte nicht updaten', error)
     }

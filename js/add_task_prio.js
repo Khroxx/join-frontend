@@ -3,10 +3,11 @@
  * @function
  */
 function changeColorUrgent() {
-    if (document.getElementById('add-task-urgent').style.backgroundColor == 'rgb(255, 61, 0)') {
+    if (document.getElementById('add-task-urgent') != null && document.getElementById('add-task-urgent').style.backgroundColor == 'rgb(255, 61, 0)') {
         resetColorAll();
         return 'none';
     } else {
+        if (document.getElementById('add-task-medium') != null && document.getElementById('add-task-urgent') != null && document.getElementById('add-task-low') != null){ 
         document.getElementById('add-task-urgent').style.backgroundColor = '#FF3D00';
         document.getElementById('add-task-urgent').style.color = '#fff';
         document.getElementById('add-task-urgent').querySelector('img').src = '/assets/img/Prio urgent white.png';
@@ -18,6 +19,7 @@ function changeColorUrgent() {
         document.getElementById('add-task-low').style.backgroundColor = '#fff';
         document.getElementById('add-task-low').style.color = '#000';
         document.getElementById('add-task-low').querySelector('img').src = '/assets/img/Prio low.png';
+        }
     }
 
 }
@@ -55,10 +57,11 @@ function changeColorMedium() {
  * @function
  */
 function changeColorLow() {
-    if (document.getElementById('add-task-low').style.backgroundColor == 'rgb(122, 226, 41)') {
+    if (document.getElementById('add-task-low') != null && document.getElementById('add-task-low').style.backgroundColor == 'rgb(122, 226, 41)') {
         resetColorAll();
         return 'none';
     } else {
+        if (document.getElementById('add-task-medium') != null && document.getElementById('add-task-urgent') != null && document.getElementById('add-task-low') != null){ 
         document.getElementById('add-task-low').style.backgroundColor = '#7AE229';
         document.getElementById('add-task-low').style.color = '#fff';
         document.getElementById('add-task-low').querySelector('img').src = '/assets/img/Prio low white.png';
@@ -72,6 +75,7 @@ function changeColorLow() {
         document.getElementById('add-task-medium').style.backgroundColor = '#fff';
         document.getElementById('add-task-medium').style.color = '#000';
         document.getElementById('add-task-medium').querySelector('img').src = '/assets/img/Prio medium.png';
+        }
     }
 
 }
