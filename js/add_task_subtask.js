@@ -1,3 +1,5 @@
+let subtaskArray = []
+
 /**
  * Confirms the addition of a subtask to the list.
  * @function
@@ -12,10 +14,30 @@ async function confirmAddSubtask() {
         let subtaskArray = [{
             text: subtaskInput.value,
         }]
-        await setSubtask(currentTodoId, subtaskArray)
+        // if (currentTodoId != undefined){
+            await setSubtask(currentTodoId, subtaskArray)
+        // }
         subtaskList.innerHTML = renderSubtasksAddTask();
         subtaskInput.value = '';
         removeAlertSubtask();
+    }
+}
+
+async function holdSubtasks(){
+    let subtaskInput = document.getElementById('add-task-subtask-input');
+    let subtaskList = document.getElementById('add-task-subtask-list');
+    let subtaskAlert = document.getElementById('add-task-subtask-alert');
+    if (subtaskInput.value.trim() == '') {
+        subtaskAlert.classList.remove('d-none');
+    } else {
+        subtaskArray.push({"text":  subtaskInput.value})
+        // console.log('array', subtaskArray)
+        subtaskList.innerHTML = renderSubtasksAddTask();
+        removeAlertSubtask();
+        // console.log(subtaskArray)
+        subtaskInput.value = '';
+        return subtaskArray
+
     }
 }
 
@@ -105,15 +127,33 @@ function renderSubtasksAddTaskDifferent(todoId){
  * @function
  */
 function renderSubtasksAddTask() {
-    let subtaskList = '';
+    if (subtaskArray.length >= 0){
+        // subtasks = subtaskArray;
+        let subtaskList = [];
+        if (subtaskArray.length > 0) {
+            for (let i = 0; i < subtaskArray.length; i++) {
+                if (subtaskArray[i].id === undefined) {
+                    subtaskList +=  (`<li>${subtaskArray[i].text}</li>`);
+                    // console.log('liste', subtaskList)
+
+                }
+            }
+        }
+    return subtaskList;
+
+    }else {
+    let subtaskList = [];
     if (subtasks.length > 0) {
         for (let i = 0; i < subtasks.length; i++) {
             if (subtasks[i].id === undefined) {
+                console.log(subtasks[i])
                 subtaskList +=  (i, subtasks);
             }
         }
     }
     return subtaskList;
+    
+    }
 }
 
 

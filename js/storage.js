@@ -227,7 +227,7 @@ async function getSubtasks() {
 // create subtask function to backend
 async function setSubtask(todoId, subtasks){
     const url = `http://127.0.0.1:8000/subtasks/`;
-    console.log(subtasks)
+    console.log(subtasks[0])
     for (let i = 0; i < subtasks.length; i++ ){
     const requestOptions = {
         method: 'POST',
@@ -243,6 +243,7 @@ async function setSubtask(todoId, subtasks){
         if (!response.ok) {
             throw new Error('Todo konnte nicht erstellt werden');
         }
+        subtaskArray = [];
     } catch (error){
         console.log('konnte subtask nicht hinzufügen', error)
     }

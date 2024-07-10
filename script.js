@@ -21,6 +21,7 @@ async function init() {
  */
 function setActivePage(pageName, pageId, imgId, imgPathBlue, imgPathDefault){
     let responsive = window.innerWidth < 1000;
+    // currentTodoId = '';
     if (document.location.pathname.includes(pageName)){
         let pageElement = document.getElementById(pageId);
         let imgElement = document.getElementById(imgId);

@@ -19,7 +19,9 @@ async function initTaskData() {
     await loadContacts();
     await loadTasks();
     subtasks = await getSubtasks();
+    if (document.getElementById('add-task-contacts-to-assigne') != null ){
     document.getElementById('add-task-contacts-to-assigne').innerHTML = renderAssignableContacts();
+    }
     allTasks.forEach(task => {
         changePriority(task.priority);
     });
@@ -53,7 +55,8 @@ function generateTaskID(existingIDs) {
  * @throws {Alert} - Displays alerts for missing priority or category selections.
  */
 async function createTask() {
-    let thisSubtasks = subtasks.filter(subtask => !subtask.id);
+    let thisSubtasks = holdSubtasks();
+    // let thisSubtasks = subtasks.filter(subtask => !subtask.id);
 
     const newTask = {
         title: document.getElementById('add-task-title').value,
@@ -123,8 +126,10 @@ function removeAlertCategory() {
  */
 async function updateMinDate() {
     let today = new Date().toISOString().split('T')[0];
+    if (document.getElementById('add-task-date') != null){
     document.getElementById('add-task-date').min = today;
     document.getElementById('add-task-date').value = today;
+    }
 }
 
 
@@ -370,13 +375,19 @@ document.addEventListener('click', handleClick);
  */
 function renderSelectedContactsMini() {
     let miniContacts = '';
-    let userIds;
+    let userIds = '';
     let thisTask = allTasks.filter(task => task.id === currentTodoId)
     // console.log(allTasks[0])
 
     if (thisTask.length > 0) {
         userIds = thisTask[0].users;
-    }
+    }   
+    if (!thisTask){
+        let selectedUsers = allContacts[0];
+        for (let i = 0; i < selectedUsers.length; i++) {
+            miniContacts += selectedContactMiniTemplate(getInitials(selectedUsers[i]));
+        }
+    } else {
     let selectedUsers = allContacts[0].filter(contact => userIds.includes(contact.id));
     const selectedContacts = selectedUsers.map(user => user.username);
     if (selectedContacts.length > 0) {
@@ -384,6 +395,7 @@ function renderSelectedContactsMini() {
             miniContacts += selectedContactMiniTemplate(getInitials(selectedContacts[i]));
         }
     }
+}
     return miniContacts;
 }
 
