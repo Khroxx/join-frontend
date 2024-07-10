@@ -11,3 +11,4 @@
 - If you're using something different, make sure to change that local adress in the backend kanban/settings.py - ALLOWED-HOSTS.py
 - Register yourself through Sign Up
 - Login with email and your password
+- Create, Read, Update and Delete (CRUD) Todos and Subtasks
