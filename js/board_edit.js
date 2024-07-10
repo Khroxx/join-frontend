@@ -34,23 +34,27 @@ function showAndHideContactsEdit(elementID) {
     let selectedContactsEdit = [];
     
     let thisElement = allTasks.filter(task => task.id === elementID)
-    thisElement[0].users.forEach(userId => {
-        allUsers.forEach(assignedUsers => {
-            if (userId === assignedUsers.id){
-                selectedContactsEdit.push(assignedUsers)
-            }
-        })
-    })
+    // thisElement[0].users.forEach(userId => {
+    //     allUsers.forEach(assignedUsers => {
+    //         if (userId === assignedUsers.id){
+    //             selectedContactsEdit.push(assignedUsers)
+    //         }
+    //     })
+    // })
+    // allUsers.forEach(user => {
+    //     selectedContactsEdit.push(user)
+    // })
+    // selectedContactsEdit.push(allUsers)
     let selectedContactsMini = document.getElementById('add-task-selected-contacts-mini');
     let contactBox = document.getElementById('add-task-contacts-to-assigne-edit');
     let contactDropdown = document.getElementById('add-task-assigne');
     let contactSearchbarContainer = document.getElementById('searchbar-add-contacts-container');
-    // console.log('selected', selectedContactsEdit)
+    console.log('selected', selectedContactsEdit)
 
     if (contactBox.classList.contains('d-none')) {
         showContactsEdit(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer);
     } else {
-        hideContactsEdit(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer,selectedContactsEdit);
+        hideContactsEdit(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer);
     }
 }
 
@@ -119,17 +123,26 @@ function renderAssignableContactsEdit(elementID){
  * @returns {string} - The HTML string representing the contact template for task editing.
  */
 function assignContactsTemplateEdit(username, index, element, elementID) {
+    // allContacts[0].forEach(user => )
+    let allNames = [];
+    for ( i = 0; i < allContacts[0].length; i++){
+        allNames.push(allContacts[0][i])
+    }
+    console.log(allNames)
     const contactFound = findContactByUsername(element, username)
     const contactElement = document.createElement('div');
 
     let selectedClass = '';
     let checkboxImage = `assets/img/add-task/checkbox.png`;
 
-    if (contactFound) {
+    if (allNames) {
         selectedClass = 'selectedContact';
         checkboxImage = 'assets/img/add-task/checkbox-checked.png';
-        contactElement.innerHTML += contactElementEditInnerHTML(elementID, index, selectedClass, contactFound, checkboxImage);
-        // console.log(contactElement.innerHTML)
+        // for (i = 0; i < allNames.length; i++){
+
+            contactElement.innerHTML += contactElementEditInnerHTML(elementID, index, selectedClass, allNames[index], checkboxImage);
+        // }
+            // console.log(contactElement.innerHTML)
         const checkboxImgElement = contactElement.querySelector(`#contact-checkbox-${index}`);
         checkboxImgElement.style.filter = 'brightness(0) saturate(100%) invert(87%) sepia(14%) saturate(5010%) hue-rotate(541deg) brightness(250%) contrast(155%)';
     }
@@ -169,6 +182,7 @@ async function searchContactToAddEdit(elementID) {
  * @returns {string} - The inner HTML string for the contact element in task editing.
  */
 function contactElementEditInnerHTML(elementID, index, selectedClass, name, checkboxImage) {
+
     return (
         `
         <div onclick="selectContact(${index}), selectAssignedContact(${elementID}, ${index})" id="contact-${index}" class="add-task-contacts-to-assigne-list-item ${selectedClass}">
@@ -178,4 +192,5 @@ function contactElementEditInnerHTML(elementID, index, selectedClass, name, chec
         </div>
         `
     );
+
 }

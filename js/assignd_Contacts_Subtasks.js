@@ -121,19 +121,24 @@ function renderAssignedContactSmallInfoCard(assignedContacts) {
 function selectAssignedContact(elementID, index){
     let contact = document.getElementById(`contact-${index}`);
     const assignedContact = selectedContacts;
-    const taskIndex = allTasks.findIndex(task => task.id === elementID);
-    if (taskIndex === -1) {
-        return;
-    }
+    // const taskIndex = allTasks.findIndex(task => task.id === elementID);
+    currentTodoId = elementID;
+    let thisTask = allTasks.filter(task => task.id === currentTodoId)
+    console.log(allTasks)
+    // if (taskIndex === -1) {
+        // return;
+    // }
     if (contact.classList.contains('selectedContact')) {
-        const combinedAssignedContacts = [...allTasks[taskIndex].assignedContact, ...assignedContact];
-        const uniqueAssignedContacts = [...new Set(combinedAssignedContacts)];
-
-        allTasks[taskIndex].assignedContact = uniqueAssignedContacts;
+        // const combinedAssignedContacts = [...allTasks[taskIndex].assignedContact, ...assignedContact];
+        // const uniqueAssignedContacts = [...new Set(combinedAssignedContacts)];
+        
+        // allTasks[taskIndex].assignedContact = uniqueAssignedContacts;
+        
     } 
     else {
-        const existingContactIndex = allTasks[taskIndex].assignedContact.indexOf(assignedContact);
-        allTasks[taskIndex].assignedContact.splice(existingContactIndex, 1);
+        // const existingContactIndex = allTasks[taskIndex].assignedContact.indexOf(assignedContact);
+
+        // allTasks[taskIndex].assignedContact.splice(existingContactIndex, 1);
     }  
     renderAssignableContactsEdit(elementID);
 }

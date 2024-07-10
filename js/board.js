@@ -328,9 +328,17 @@ function getFirstLettersUppercase(text) {
  * @returns {string} - The initials.
  */
 function getInitials(fullName) {
-    const nameParts = fullName.split(' ');
-    const initials = nameParts.map(part => part.charAt(0)).join('');
-    return initials;
+    console.log(fullName)
+    // fullName = String(fullName)
+    if (fullName.includes(" ")){
+        const nameParts = fullName.split(' ');
+        const initials = nameParts.map(part => part.charAt(0)).join('');
+        return initials;
+
+    } else {
+        const initials = fullName.charAt(0)
+        return initials;
+    }
 }
 
 

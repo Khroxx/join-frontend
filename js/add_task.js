@@ -55,7 +55,8 @@ function generateTaskID(existingIDs) {
  * @throws {Alert} - Displays alerts for missing priority or category selections.
  */
 async function createTask() {
-    let thisSubtasks = holdSubtasks();
+    // let thisSubtasks = holdSubtasks();
+    console.log(subtaskArray)
     // let thisSubtasks = subtasks.filter(subtask => !subtask.id);
 
     const newTask = {
@@ -65,7 +66,7 @@ async function createTask() {
         priority: assignPriority(selectedPriority),
         assignedContact: selectedContacts.map(contact => contact.id),
         category: selectedCategory,
-        subtask: thisSubtasks,
+        subtask: subtaskArray,
         status: lastStatus
     };
 
@@ -76,6 +77,8 @@ async function createTask() {
     try {
         
         allTasks.push(newTask);
+        console.log('alles', newTask)
+        console.log('subtask', newTask.subtask)
         await setTodo(newTask.title, newTask.description, newTask.date, 
             newTask.priority, newTask.assignedContact, newTask.category,
             newTask.status, newTask.subtask);
@@ -83,12 +86,12 @@ async function createTask() {
         console.log('kein neues todo', error)
     }
 
-    if (window.location.href.endsWith('add_task.html')) {
-        taskAddedPopup();
-        setTimeout(function () {
-            window.location.href = 'board.html';
-        }, 800);
-    }
+    // if (window.location.href.endsWith('add_task.html')) {
+    //     taskAddedPopup();
+    //     setTimeout(function () {
+    //         window.location.href = 'board.html';
+    //     }, 800);
+    // }
     clearForm();
 
 }

@@ -28,10 +28,11 @@ function changeColorUrgent() {
  * @function
  */
 function changeColorMedium() {
-    if (document.getElementById('add-task-medium').style.backgroundColor == 'rgb(255, 168, 0)') {
+    if (document.getElementById('add-task-medium') != null && document.getElementById('add-task-medium').style.backgroundColor == 'rgb(255, 168, 0)') {
         resetColorAll();
         return 'none';
     } else {
+        if (document.getElementById('add-task-medium') != null && document.getElementById('add-task-urgent') != null && document.getElementById('add-task-low') != null){ 
         document.getElementById('add-task-medium').style.backgroundColor = '#FFA800';
         document.getElementById('add-task-medium').style.color = '#fff';
         document.getElementById('add-task-medium').querySelector('img').src = '/assets/img/Prio medium white.png';
@@ -43,6 +44,7 @@ function changeColorMedium() {
         document.getElementById('add-task-low').style.backgroundColor = '#fff';
         document.getElementById('add-task-low').style.color = '#000';
         document.getElementById('add-task-low').querySelector('img').src = '/assets/img/Prio low.png';
+        }
     }
 
 }
@@ -158,11 +160,12 @@ function assignPriorityClick(priority) {
  * @function
  */
 function changePriority(priority) {
-    if (selectedPriority && selectedPriority !== 'none') {
+    if (document.getElementById(`add-task-${selectedPriority}`) != null && selectedPriority && selectedPriority !== 'none') {
         document.getElementById(`add-task-${selectedPriority}`).classList.remove('selected');
     }
 
     selectedPriority = priority;
+    if (document.getElementById(`add-task-${priority}`) != null)
     document.getElementById(`add-task-${priority}`).classList.add('selected');
     assignPriorityClick(priority);
 }
