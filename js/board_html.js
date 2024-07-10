@@ -130,7 +130,6 @@ function openEditTaskForm(element, elementID) {
     const categoryHTML = element[0]['category'] ? `<div class="category">${getFirstLettersUppercase(element[0]['category'])}</div>` : '';
     
     saveStatus(element[0]['status']);
-
     return /*html*/`
     <div class="popup editTaskContainerBoard" onclick="closeTaskPopup()">
         <form class="popup-content editTask" onclick="doNotClose(event)" onsubmit="updateEditedTask(${elementID}); return false;">

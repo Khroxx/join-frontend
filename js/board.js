@@ -151,7 +151,7 @@ function filterSubTaskDone(element){
  */
 function openInfoCard(elementID){    
     closeAddTaskForm();
-
+    currentTodoId = elementID;
     let element = loadedTasks.filter((id) => id["id"] == elementID);
     let infoCard = document.getElementById("InfoCard");
   

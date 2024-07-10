@@ -14,6 +14,12 @@ function renderSelectedContactsMiniEdit(selectedContactsEdit) {
             }
         }
     }
+    // if (selectedContacts.length > 0) {
+    //     for (let i = 0; i < selectedContacts.length; i++) {
+    //         miniContacts += selectedContactMiniTemplate(getInitials(selectedContacts[i]));
+    //     }
+    // }
+    // console.log(miniContacts)
     return miniContacts;
 }
 
@@ -90,13 +96,14 @@ function hideContactsEdit(selectedContactsMini, contactBox, contactDropdown, con
  * @param {string} elementID - The unique identifier of the task element.
  * @returns {string} - The HTML string representing assignable contacts for task editing.
  */
-async function renderAssignableContactsEdit(elementID){
+function renderAssignableContactsEdit(elementID){
     const element = allTasks.filter(task => task.id  === elementID);
     const promises = allContacts[0].map((contact, index) => 
         assignContactsTemplateEdit(contact.username, index, element, elementID)
     );
-    const results = await Promise.all(promises);
-    const content = results.join('');
+    // const results = await Promise.all(promises);
+    // const content = results.join('');
+    const content = promises
 
     // console.log('test', content);
     return content;

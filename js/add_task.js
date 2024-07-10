@@ -370,9 +370,18 @@ document.addEventListener('click', handleClick);
  */
 function renderSelectedContactsMini() {
     let miniContacts = '';
+    let userIds;
+    let thisTask = allTasks.filter(task => task.id === currentTodoId)
+    // console.log(allTasks[0])
+
+    if (thisTask.length > 0) {
+        userIds = thisTask[0].users;
+    }
+    let selectedUsers = allContacts[0].filter(contact => userIds.includes(contact.id));
+    const selectedContacts = selectedUsers.map(user => user.username);
     if (selectedContacts.length > 0) {
         for (let i = 0; i < selectedContacts.length; i++) {
-            miniContacts += selectedContactMiniTemplate(getInitials(selectedContacts[i].username));
+            miniContacts += selectedContactMiniTemplate(getInitials(selectedContacts[i]));
         }
     }
     return miniContacts;
