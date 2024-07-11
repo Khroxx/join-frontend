@@ -4,6 +4,11 @@
 if(document.location.pathname.includes("index.html") || document.location.pathname.includes("sign_up.html")){
     setTimeout(loadImg, 1000);
 }
+window.addEventListener('DOMContentLoaded', (event) => {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+        window.location.href = '/index.html';
+    }
+});
 
 
 /**
