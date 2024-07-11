@@ -409,12 +409,16 @@ async function editContact(i) {
 
 // save edited contact to storage
 async function saveChangeContact() {
-  const editedIndex = currentEditIndex;
+  const editedIndex = currentEditIndex - 1;
   // const contactsString = await getItem("kontakte");
   loadedContacts = await getUsers()
   // loadedContacts = JSON.parse(contactsString);
   const editedContact = loadedContacts[editedIndex];
-  let { editedName, editedEmail, editedPhone } = getChangedEdits();
+const edits = getChangedEdits();
+if (!edits){
+  return
+} else {
+  let { editedName, editedEmail, editedPhone } = edits;
   editedContact.username = editedName;
   editedContact.email = editedEmail;
   editedContact.phone = editedPhone;
@@ -424,6 +428,9 @@ async function saveChangeContact() {
   contactsListRender(loadedContacts);
   closeEditContact();
   closeMobileOptionsWindow();
+  location.reload
+  openContactView(editedIndex)
+}
 }
 
 // gets the input from the changed contact
@@ -439,7 +446,7 @@ function getChangedEdits(){
   const editedPhone = phone.value;
   
   if (nameError || emailError || phoneError) {
-    return null;
+    return ;
   }
   return {
     editedName,
@@ -450,11 +457,12 @@ function getChangedEdits(){
 
 // delete edited contact from storage
 async function delEditedContact(){
-  const deletedIndex = currentEditIndex;
-  const contactsString = await getItem("kontakte");
+  const deletedIndex = currentEditIndex - 1;
+  // const contactsString = await getItem("kontakte");
   loadedContacts = JSON.parse(contactsString);
   loadedContacts.splice(deletedIndex, 1)[0];
-  await setItem("kontakte", JSON.stringify(loadedContacts));
+  delContact(deletedIndex)
+  // await setItem("kontakte", JSON.stringify(loadedContacts));
   contactsListRender(loadedContacts);
   openContactView(currentEditIndex)
   closeEditContact();

@@ -45,7 +45,7 @@ async function setUser(email, username, password) {
 
 //update user credentials to backend
 async function updateUser(email, username, phone, id){
-    let correctId = id - 1;
+    let correctId = id;
     const csrfToken = localStorage.getItem('Token') 
     const url = `http://127.0.0.1:8000/users/${correctId}/`;
     const requestOptions = {

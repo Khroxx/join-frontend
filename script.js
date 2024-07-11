@@ -13,7 +13,8 @@ if(document.location.pathname.includes("index.html") || document.location.pathna
 async function init() {
     await includeHTML();
     CheckIfLoggedInOrGuest();
-    checkFocusOnSidenav()
+    checkFocusOnSidenav();
+    
 }
 
 /**

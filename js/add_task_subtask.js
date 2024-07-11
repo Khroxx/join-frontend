@@ -97,15 +97,20 @@ async function confirmEditSubtask(i, subtaskId) {
     } else {
         let thisTask = subtasks.find(task => task.id ===  subtaskId)
         thisTask.text = subtaskInput.value;
-        console.log(subtasks[i])
+        // console.log(subtasks[i])
         await updateSubtasks(thisTask.todo_item, thisTask.text, thisTask.status, thisTask.id)
         subtaskEditEmptyAlert.classList.add('d-none');
         subtaskListItem.classList.remove('d-none');
         subtaskInput.classList.add('d-none');
         subtaskEditContainer.classList.add('d-none');
         subtaskList.innerHTML = renderSubtasksAddTaskDifferent(thisTask.todo_item);
-        closeTaskPopup(); // oder was um subtasks neu zu rendern richtig
+        // closeTaskPopup(); // oder was um subtasks neu zu rendern richtig
+        // editTask(thisTask.todo_item);    
     }
+}
+
+function renderSubtask(subtask, index) {
+    return `<li id="add-task-subtask-list-item${index}">${subtask.text}</li>`;
 }
 
 function renderSubtasksAddTaskDifferent(todoId){
@@ -113,11 +118,20 @@ function renderSubtasksAddTaskDifferent(todoId){
     if (subtasks.length > 0){
         for (let i = 0; i < subtasks.length; i++) {
             if (subtasks[i].todo_item === todoId) {
-                subtaskList +=  (i, subtasks);
+                subtaskList += renderSubtask(subtasks[i], i);
             }
         }
     }
     return subtaskList;
+    // let subtaskList = '';
+    // if (subtasks.length > 0){
+    //     for (let i = 0; i < subtasks.length; i++) {
+    //         if (subtasks[i].todo_item === todoId) {
+    //             subtaskList +=  (i, subtasks);
+    //         }
+    //     }
+    // }
+    // return subtaskList;
 }
 
 
