@@ -26,7 +26,7 @@ async function loadContacts() {
           await contactsListRender(contacts);
       }
   } catch (error) {
-    console.log('removing')
+    // console.log('removing')
     console.error(error)
       // await removeErrorContacts();
   }
@@ -471,16 +471,12 @@ async function delEditedContact(){
 
 // delete contact from storage
 async function delContact(i) {
-    // const contactsString = await getItem("kontakte");
-    // loadedContacts = JSON.parse(contactsString);
-    // loadedContacts = await getUsers();
     await deleteUser(i);
-    // loadedContacts.splice(i, 1)[0];
-    // await setItem("kontakte", JSON.stringify(loadedContacts));
     loadedContacts = await getUsers()
     contactsListRender(loadedContacts);
     openContactView(i);
     closeMobileOptionsWindow();
+    location.reload()
 }
 
 // close add new contact popup
